@@ -1,0 +1,13 @@
+{
+  "name": "tdc",
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=claude-code-config,target=/home/vscode/.claude,type=volume",
+    "source=opencode-config,target=/home/vscode/.local/share/opencode,type=volume"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+  },
+  "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.local/share/opencode"
+}
