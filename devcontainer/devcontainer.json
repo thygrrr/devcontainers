@@ -4,10 +4,12 @@
   "remoteUser": "vscode",
   "mounts": [
     "source=claude-code-config,target=/home/vscode/.claude,type=volume",
-    "source=opencode-config,target=/home/vscode/.local/share/opencode,type=volume"
+    "source=opencode-config,target=/home/vscode/.local/share/opencode,type=volume",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.claude/skills,target=/home/vscode/.claude/skills,type=bind,readonly",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.config/opencode/skills,target=/home/vscode/.config/opencode/skills,type=bind,readonly"
   ],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
   },
-  "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.local/share/opencode"
+  "postCreateCommand": "sudo find /home/vscode/.claude /home/vscode/.local/share/opencode -path /home/vscode/.claude/skills -prune -o -exec chown vscode:vscode {} +"
 }
